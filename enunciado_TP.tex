@@ -1,101 +1,166 @@
-GuÃ­a para la realizaciÃ³n del Trabajo PrÃ¡ctico
+\documentclass[a4papper, 12pt, spanish]{article}
+\textheight=23cm
+\textwidth=17cm
+\topmargin=-1cm
+\oddsidemargin=0cm
+\parindent=0mm
+\usepackage{amsmath,amssymb,amsfonts,latexsym,cancel} %Soporte para símbolos y font matemáticos
+\usepackage{graphicx}			      %Soporte para gráficos.
+\DeclareGraphicsExtensions{.png}
+\usepackage[latin1]{inputenc} % Caracteres con acentos.
+\usepackage[spanish]{babel} % Caracteres con acentos.
+\usepackage{amsmath,amssymb,amsfonts,latexsym,cancel} %Paquetes de fuentes adicionales
+\usepackage{hyperref}
+\spanishdecimal{,}
 
-\begin{itemize}
-\item Definir el tipo de filtro, fo, Q, los polos y los ceros (fo es la frecuencia de corte para los filtros pasa bajo y pasa altos y la frecuencia central para los filtros pasa banda y rechazo de banda)
-\item Realizar el diagrama de Bode (mÃ³dulo y fase) con Octave/Matlab
-\item Obtener la respuesta al escalÃ³n y la respuesta al impulso con Octave/Matlab
-\item Obtener la respuesta en Octave/Matlab cuando la excitaciÃ³n es una onda cuadrada de las siguientes frecuencias: fo/10; fo; 10*fo 
+% Colores:
+\usepackage{color}
+\definecolor{gray97}{gray}{.97}
+\definecolor{gray75}{gray}{.75}
+\definecolor{gray45}{gray}{.45}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LISTINGS (Inclusión de código) %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{listings}
+\lstset{
+    language            =   Matlab,
+    frame               =   Ltb,
+    framerule           =   0pt,
+    aboveskip           =   0.5cm,
+    framextopmargin     =   3pt,
+    framexbottommargin  =   3pt,
+    framexleftmargin    =   0.4cm,
+    framesep            =   0pt,
+    rulesep             =   0.4pt,
+    backgroundcolor     =   \color{gray97},
+    rulesepcolor        =   \color{black},
+    stringstyle         =   \ttfamily,
+    showstringspaces    =   false,
+    basicstyle          =   \small\ttfamily,
+    commentstyle        =   \color{gray45},
+    keywordstyle        =   \bfseries,
+    numbers             =   left,
+    numbersep           =   15pt,
+    numberstyle         =   \tiny,
+    numberfirstline     =   false,
+    breaklines          =   true,
+    breakatwhitespace   =   true,
+}
+
+
+
+\begin{document}
+
+\begin{titlepage}
+\vskip2.5cm
+\begin{center}
+\begin{tabular}{p{1cm} p{11cm}  p{2.5cm}}
+
+\includegraphics[scale=.35]{./figs/Logo_FIUBA.jpg}
+
+&
+\large{
+\begin{center}
+\sc Análisis de circuitos\\
+\sc 86.04/6606\\
+\sc Turno 01
+\end{center}
+} &
+\end{tabular}
+\end{center}
+\vskip3cm
+\begin{center}
+\Large {\textbf{
+Enunciado de trabajo práctico}}\\
+\end{center}
+\vskip3cm
+\begin{center}
+
+\end{center}
+\vskip3.5cm
+\begin{flushright}
+\begin{tabular}{r l}
+\large{\textbf{Primer cuatrimestre 2019}}\\
+
+\end{tabular}
+\end{flushright}
+\vskip3.5cm
+
+\end{titlepage}
+
+\section{Guía para la realización del Trabajo Práctico}
+
+El trabajo práctico se entrega y defiende en forma individual. A cada estudiante se le asignará una transferencia al azar a partir de la lista de la sección \ref{SECTION::TRANSFERENCIAS}. Dentro del cuatrimestre se asignará un día para la entrega del informe y un día para la medición.
+
+
+A partir de la transferencia asiganada se pide:
+
+\begin{enumerate}
+\item Definir: el tipo de filtro, $f_0$, $\omega_0$\footnote{$f_0$ es la frecuencia de corte para los filtros pasa bajo y pasa altos y la frecuencia central para los filtros pasa banda y rechazo de banda, $\omega_0$ es la correspondiente pulsación}, $Q$, los polos y los ceros \label{ITEM::ITEM1}
+\item Realizar el diagrama de Bode (módulo y fase) con Octave/Matlab \label{ITEM::ITEM2}
+\item Obtener la respuesta al escalón y la respuesta al impulso con Octave/Matlab
+\item Obtener la respuesta en Octave/Matlab cuando la excitación es una onda cuadrada de las siguientes frecuencias: $f = \frac{f_0}{10}$; $f = f_0$; $f = 10\cdot f_0 $ \label{ITEM::ITEM4}
 \item Encontrar un circuito con amplificadores operacionales que cumpla con la transferencia propuesta
-\item Definir los valores de los componentes, utilizar valores normalizados  tanto para los capacitores (preferentemente en la serie del 10%) como los resistores (preferentemente en la serie del 10% o eventualmente del 5% o del 1%). Definir primero el valor de los capacitores y luego el de los resistores (en casos excepcionales colocar resistores ajustables o preset). Obtener la transferencia con los valores normalizados de los componentes elegidos.
-\item Realizar nuevamente los diagramas de Bode y obtener la respuesta al escalÃ³n con los valores normalizados elegidos para el circuito. Comparar con lo obtenido en los puntos 1 y 2.
-\item Realizar la simulaciÃ³n del circuito con SPICE, comparar el diagrama de Bode, la respuesta al escalÃ³n y la respuesta a la onda cuadrada (con las mismas especificaciones del punto 4) con la obtenida con Octave/Matlab.
-\item Realizar un esquema del circuito con todos sus componentes e indicando los terminales del circuito integrado que se conectan. Armar el filtro en un protoboard (aunque se recomienda armar el filtro en un circuito impreso multiperforado o diseÃ±ado especÃ­ficamente).
-\item Realizar la mediciÃ³n del filtro utilizando fuentes de alimentaciÃ³n externa, generador de funciones y osciloscopio. 
-	\subitem Medir la respuesta del filtro con excitaciÃ³n senoidal en el rango de frecuencias fo/10 hasta 10*fo en tercios de octava y en el caso de filtros pasabanda o atenuador de banda medir por lo menos 10 puntos entre fo/2 y 2fo separados equitativamente en escala logarÃ­tmica 
-	\subitem Definir el procedimiento para medir las caracterÃ­sticas principales del filtro: frecuencia/as de corte a -3dB, frecuencia de intersecciÃ³n de las asÃ­ntotas, pendientes de las asÃ­ntotas de la respuesta en frecuencia. 
-	\subitem Realizar las mediciones. Tabular las mediciones y realizar un grÃ¡fico con los valores obtenidos.
-	\subitem Obtener la respuesta del filtro a una excitaciÃ³n de onda cuadrada (con las caracterÃ­sticas especificadas en el punto 4)
-	\subitem Comparar los resultados de la mediciÃ³n con las simulaciones. Conclusiones.
-	\subitem Realizar un diagrama de interconexiÃ³n con el instrumental utilizado y sus caracterÃ­sticas. Agregar fotos del banco de mediciones y de las impresiones de pantalla del osciloscopio obtenidas en el punto d)
-\item Realizar un informe con toda la informaciÃ³n solicitada en los puntos anteriores. Conclusiones.
-\end{itemize}
+\item Definir los valores de los componentes, utilizar valores normalizados tanto para los capacitores (serie del $10\%$, serie $E12$) como los resistores (serie del $1\%$, serie $E96$). Definir primero el valor de los capacitores y luego el de los resistores. Obtener la transferencia con los valores normalizados de los componentes elegidos. Los valores de resistencias son los comprendidos entre los rangos $4.7k\Omega$ y $1.6M\Omega$, para los capacitores los ocmprendidos entre $1nF$ y $470nF$, de no poder utilizar estos valores se debe demostrar que las corrientes a la salida del operacional no superen los $5mA$.
+\item Realizar nuevamente los diagramas de Bode y obtener la respuesta al escalón con los valores normalizados elegidos para el circuito. Comparar con lo obtenido en los puntos \ref{ITEM::ITEM1} y \ref{ITEM::ITEM2}.
+\item Realizar la simulación del circuito con SPICE, comparar el diagrama de Bode, la respuesta al escalón y la respuesta a la onda cuadrada (con las mismas especificaciones del punto 4) con la obtenida con Octave/Matlab.
+\item Realizar un esquema del circuito con todos sus componentes e indicando los terminales del circuito integrado que se conectan. Armar el filtro en un protoboard (aunque se recomienda armar el filtro en un circuito impreso multiperforado o diseñado específicamente).
+\item Realizar la medición del filtro utilizando fuentes de alimentación externa, generador de funciones y osciloscopio. 
+\begin{enumerate}
+	\item Medir la respuesta del filtro con excitación senoidal en el rango de frecuencias $\frac{f_0}{10}$ hasta $ 10\cdot f_0 $ en tercios de octava y en el caso de filtros pasabanda o atenuador de banda medir por lo menos $10$ puntos entre $\frac{f_0}{2}$ y $2\cdot f_0$ separados equitativamente en escala logarítmica 
+	\item Definir el procedimiento para medir las características principales del filtro: frecuencia/as de corte a $-3dB$, frecuencia de intersección de las asíntotas, pendientes de las asíntotas de la respuesta en frecuencia. 
+	\item Realizar las mediciones. Tabular las mediciones y realizar un gráfico con los valores obtenidos.
+	\item Obtener la respuesta del filtro a una excitación de onda cuadrada (con las características especificadas en el punto \ref{ITEM::ITEM4})\label{ITEM::ITEMd}
+	\item Comparar los resultados de la medición con las simulaciones. Conclusiones.
+	\item Realizar un diagrama de interconexión con el instrumental utilizado y sus características. Agregar fotos del banco de mediciones y de las impresiones de pantalla del osciloscopio obtenidas en el punto \ref{ITEM::ITEMd})
+\end{enumerate}
+\item Realizar un informe con toda la información solicitada en los puntos anteriores.
+\item Conclusiones.
+\end{enumerate}
 
-\begin{equation}
-H(s) = \frac{4.564\cdot 10^{8}}{s^2 + s\cdot 3.021 \cdot 10^{4} + 4.564 \cdot 10^{8}}
-\end{equation}
+\section{Transferencias \label{SECTION::TRANSFERENCIAS}}
 
-\begin{equation}
-H(s) = \frac{ 2.528 \cdot 10^{9}}{s^2 + s\cdot 7.108 \cdot 10^{4} + 2.528 \cdot 10^{9}}
-\end{equation}
+$$H_1(s) = \frac{4.564\cdot 10^{8}}{s^2 + s\cdot 3.021 \cdot 10^{4} + 4.564 \cdot 10^{8}}$$
 
-\begin{equation}
-H(s) = \frac{ 2.26 \cdot 10^{8}}{s^2 + s \cdot 1.791 \cdot 10^{4} + 2.394 \cdot 10^{8}}
-\end{equation}
+$$H_2(s) = \frac{ 2.528 \cdot 10^{9}}{s^2 + s\cdot 7.108 \cdot 10^{4} + 2.528 \cdot 10^{9}}$$
 
-\begin{equation}
-H(s) = \frac{ \cdot 10^{}}{s^2 + s \cdot  \cdot 10^{} +  \cdot 10^{}}
-\end{equation}
+$$H_3(s) = \frac{ 2.26 \cdot 10^{8}}{s^2 + s \cdot 1.791 \cdot 10^{4} + 2.394 \cdot 10^{8}}$$
 
-\begin{equation}
-H(s) = \frac{ \cdot 10^{}}{s^2 + s \cdot  \cdot 10^{} +  \cdot 10^{}}
-\end{equation}
+$$H_4(s) = \frac{ 6.207\cdot 10^{8}}{s^2 + s \cdot 2.759 \cdot 10^{4} + 6.207 \cdot 10^{8}}$$
 
-\begin{equation}
-H(s) = \frac{ \cdot 10^{}}{s^2 + s \cdot  \cdot 10^{} +  \cdot 10^{}}
-\end{equation}
+$$H_5(s) = \frac{ s^2}{s^2 + s \cdot 2666 + 3.553 \cdot 10^{6}}$$
 
-\begin{equation}
-H(s) = \frac{ \cdot 10^{}}{s^2 + s \cdot  \cdot 10^{} +  \cdot 10^{}}
-\end{equation}
+$$H_6(s) = \frac{ s^2}{s^2 + s \cdot 444 + 9.869 \cdot 10^{4}}$$
 
-\begin{equation}
-H(s) = \frac{ \cdot 10^{}}{s^2 + s \cdot  \cdot 10^{} +  \cdot 10^{}}
-\end{equation}
+$$H_7(s) = \frac{ 0.9441 \cdot s^2}{s^2 + s \cdot 590.8 + 2.604 \cdot 10^{5}}$$
 
-\begin{equation}
-H(s) = \frac{ \cdot 10^{}}{s^2 + s \cdot  \cdot 10^{} +  \cdot 10^{}}
-\end{equation}
+$$H_8(s) = \frac{ s^2}{s^2 + s \cdot 3510 + 1.004 \cdot 10^{7}}$$
 
-\begin{equation}
-H(s) = \frac{ \cdot 10^{}}{s^2 + s \cdot  \cdot 10^{} +  \cdot 10^{}}
-\end{equation}
+$$H_9(s) = \frac{ s^2 }{s^2 + s \cdot 13333 + 8.889 \cdot 10^{7}}$$
 
-\begin{equation}
-H(s) = \frac{ \cdot 10^{}}{s^2 + s \cdot  \cdot 10^{} +  \cdot 10^{}}
-\end{equation}
+$$H_{10}(s) = \frac{ 1847 \cdot s}{s^2 + s \cdot 1847 + 1.567 \cdot 10^{7}}$$
 
-\begin{equation}
-H(s) = \frac{ \cdot 10^{}}{s^2 + s \cdot  \cdot 10^{} +  \cdot 10^{}}
-\end{equation}
+$$H_{11}(s) = \frac{ 2928 }{s^2 + s \cdot 2928 + 3.948 \cdot 10^{7}}$$
 
-\begin{equation}
-H(s) = \frac{ \cdot 10^{}}{s^2 + s \cdot  \cdot 10^{} +  \cdot 10^{}}
-\end{equation}
+$$H_{12}(s) = \frac{ 4649\cdot s}{s^2 + s \cdot 4649 + 9.95 \cdot 10^{7}}$$
 
-\begin{equation}
-H(s) = \frac{ \cdot 10^{}}{s^2 + s \cdot  \cdot 10^{} +  \cdot 10^{}}
-\end{equation}
+$$H_{13}(s) = \frac{ s \cdot 207}{s^2 + s \cdot 207 + 4.562 \cdot 10^{6}}$$
 
-\begin{equation}
-H(s) = \frac{ \cdot 10^{}}{s^2 + s \cdot  \cdot 10^{} +  \cdot 10^{}}
-\end{equation}
+$$H_{14}(s) = \frac{ 628 }{s^2 + s \cdot 628 + 3.948 \cdot 10^{7}}$$
 
-\begin{equation}
-H(s) = \frac{ \cdot 10^{}}{s^2 + s \cdot  \cdot 10^{} +  \cdot 10^{}}
-\end{equation}
+$$H_{15}(s) = \frac{ 2450 \cdot s}{s^2 + s \cdot 2450 + 6317 \cdot 10^{8}}$$
 
-\begin{equation}
-H(s) = \frac{ \cdot 10^{}}{s^2 + s \cdot  \cdot 10^{} +  \cdot 10^{}}
-\end{equation}
+$$H_{16}(s) = \frac{ s^2 +3.948 \cdot 10^{5}}{s^2 + s \cdot 62.8 + 3.948 \cdot 10^{5}}$$
 
-\begin{equation}
-H(s) = \frac{ \cdot 10^{}}{s^2 + s \cdot  \cdot 10^{} +  \cdot 10^{}}
-\end{equation}
+$$H_{17}(s) = \frac{ s^2 + 3.948\cdot 10^{5}}{s^2 + s \cdot 628 + 3.948 \cdot 10^{7}}$$
 
-\begin{equation}
-H(s) = \frac{ \cdot 10^{}}{s^2 + s \cdot  \cdot 10^{} +  \cdot 10^{}}
-\end{equation}
+%%$$H_{18}(s) = \frac{ \cdot 10^{}}{s^2 + s \cdot  \cdot 10^{} +  \cdot 10^{}}$$
+%%
+%%$$H(s) = \frac{ \cdot 10^{}}{s^2 + s \cdot  \cdot 10^{} +  \cdot 10^{}}$$
+%%
+%%$$H(s) = \frac{ \cdot 10^{}}{s^2 + s \cdot  \cdot 10^{} +  \cdot 10^{}}$$
 
-\begin{equation}
-H(s) = \frac{ \cdot 10^{}}{s^2 + s \cdot  \cdot 10^{} +  \cdot 10^{}}
-\end{equation}
+
+
+\end{document}
