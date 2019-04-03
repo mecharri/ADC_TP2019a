@@ -12,6 +12,9 @@
 \usepackage{amsmath,amssymb,amsfonts,latexsym,cancel} %Paquetes de fuentes adicionales
 \usepackage{hyperref}
 \spanishdecimal{,}
+\usepackage{fancyhdr}
+%\usepackage[showframe]{geometry}
+\usepackage[headsep=1cm,headheight=2cm]{geometry}
 
 % Colores:
 \usepackage{color}
@@ -48,46 +51,20 @@
     breakatwhitespace   =   true,
 }
 
+%\headheight{32pt}
+
+\fancyhead[C]{8604/6606 Analisis de circuitos \\ Turno 01}
+\fancyhead[L]{\includegraphics[scale=.15]{./figs/Logo_FIUBA.jpg}}
+\fancyhead[R]{2019A}
+
+%\lhead{\includegraphics[scale=.15]{./figs/Logo_FIUBA.jpg}}%: campo de la izquierda del encabezado. Alineado a la izquierda.
+%\chead{8604/6606 Analisis de circuitos Turno 01}%: campo central del encabezado. Centrado.
+%\rhead{2019A}%: campo de la derecha del encabezado. Alineado a la derecha.
 
 
 \begin{document}
+\pagestyle{fancy}
 
-\begin{titlepage}
-\vskip2.5cm
-\begin{center}
-\begin{tabular}{p{1cm} p{11cm}  p{2.5cm}}
-
-\includegraphics[scale=.35]{./figs/Logo_FIUBA.jpg}
-
-&
-\large{
-\begin{center}
-\sc Análisis de circuitos\\
-\sc 86.04/6606\\
-\sc Turno 01
-\end{center}
-} &
-\end{tabular}
-\end{center}
-\vskip3cm
-\begin{center}
-\Large {\textbf{
-Enunciado de trabajo práctico}}\\
-\end{center}
-\vskip3cm
-\begin{center}
-
-\end{center}
-\vskip3.5cm
-\begin{flushright}
-\begin{tabular}{r l}
-\large{\textbf{Primer cuatrimestre 2019}}\\
-
-\end{tabular}
-\end{flushright}
-\vskip3.5cm
-
-\end{titlepage}
 
 \section{Guía para la realización del Trabajo Práctico}
 
